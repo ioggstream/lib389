@@ -29,7 +29,8 @@ def setup():
         raise e
 
 
-def tearDown():
+@classmethod
+def teardown_class():
     global conn
 
     # reduce log level

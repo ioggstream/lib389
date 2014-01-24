@@ -17,6 +17,7 @@ from lib389 import DirSrv, Entry
 from _constants import REPLICAROLE_CONSUMER
 
 # Used for One master / One consumer topology
+from config import INSTANCE_PREFIX
 HOST_MASTER = LOCALHOST
 PORT_MASTER = 40389
 SERVERID_MASTER = 'master'
@@ -29,8 +30,6 @@ SERVERID_CONSUMER = 'consumer'
 TEST_REPL_DN = "uid=test,%s" % DEFAULT_SUFFIX
 INSTANCE_PORT     = 54321
 INSTANCE_SERVERID = 'dirsrv'
-#INSTANCE_PREFIX   = os.environ.get('PREFIX', None)
-INSTANCE_PREFIX = '/home/tbordaz/install'
 INSTANCE_BACKUP = os.environ.get('BACKUPDIR', DEFAULT_BACKUPDIR)
 NEW_SUFFIX_1    = 'ou=test_master'
 NEW_BACKEND_1   = 'test_masterdb'
@@ -52,7 +51,8 @@ NEW_BACKEND_5   = 'test_enablereplicationdb_3'
 class Test_replica():
 
 
-    def setUp(self):
+    @classmethod
+    def setup_class(self):
         # Create the master instance
         master = DirSrv(verbose=False)
         master.log.debug("Master allocated")
@@ -84,7 +84,8 @@ class Test_replica():
         self.consumer = consumer
 
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(self):
         self.master.log.info("\n\n#########################\n### TEARDOWN\n#########################")
         for instance in (self.master, self.consumer):
             if instance.exists():

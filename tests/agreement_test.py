@@ -14,9 +14,9 @@ from lib389.agreement import Agreement
 from lib389._constants import *
 from lib389.properties import *
 from lib389 import DirSrv, Entry
-from _constants import REPLICAROLE_CONSUMER
 
 # Used for One master / One consumer topology
+from config import INSTANCE_PREFIX
 HOST_MASTER = LOCALHOST
 PORT_MASTER = 40389
 SERVERID_MASTER = 'master'
@@ -29,8 +29,6 @@ SERVERID_CONSUMER = 'consumer'
 TEST_REPL_DN = "uid=test,%s" % DEFAULT_SUFFIX
 INSTANCE_PORT     = 54321
 INSTANCE_SERVERID = 'dirsrv'
-#INSTANCE_PREFIX   = os.environ.get('PREFIX', None)
-INSTANCE_PREFIX = '/home/tbordaz/install'
 INSTANCE_BACKUP = os.environ.get('BACKUPDIR', DEFAULT_BACKUPDIR)
 
 SUFFIX = DEFAULT_SUFFIX
@@ -41,7 +39,8 @@ ENTRY_DN = "cn=test_entry, %s" % SUFFIX
 class Test_Agreement():
 
 
-    def setUp(self):
+    @classmethod
+    def setup_class(self):
         #
         # Master
         #
@@ -86,7 +85,8 @@ class Test_Agreement():
         self.consumer = consumer
 
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(self):
         self.master.log.info("\n\n#########################\n### TEARDOWN\n#########################\n")
         for instance in (self.master, self.consumer):
             if instance.exists():

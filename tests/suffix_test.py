@@ -32,7 +32,8 @@ NEW_CHILDBACKEND_2 = 'test_bis_createchilddb'
 class Test_suffix():
 
 
-    def setUp(self):
+    @classmethod
+    def setup_class(self):
         instance = DirSrv(verbose=False)
         instance.log.debug("Instance allocated")
         args = {SER_HOST:          LOCALHOST,
@@ -48,7 +49,8 @@ class Test_suffix():
         self.instance = instance
 
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(self):
         if self.instance.exists():
             self.instance.delete()
 

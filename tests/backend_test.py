@@ -13,11 +13,11 @@ from lib389.properties import *
 from lib389 import DirSrv,Entry, InvalidArgumentError
 
 
+from config import INSTANCE_PREFIX
+
 TEST_REPL_DN = "uid=test,%s" % DEFAULT_SUFFIX
 INSTANCE_PORT     = 54321
 INSTANCE_SERVERID = 'dirsrv'
-#INSTANCE_PREFIX   = os.environ.get('PREFIX', None)
-INSTANCE_PREFIX   = None
 INSTANCE_BACKUP   = os.environ.get('BACKUPDIR', DEFAULT_BACKUPDIR)
 NEW_SUFFIX_1       = 'o=test_create'
 NEW_BACKEND_1      = 'test_createdb'
@@ -31,7 +31,8 @@ NEW_CHILDBACKEND_2 = 'test_bis_createchilddb'
 class Test_Backend(object):
 
 
-    def setUp(self):
+    @classmethod
+    def setup_class(self):
         instance = DirSrv(verbose=False)
         instance.log.debug("Instance allocated")
         args = {SER_HOST:          LOCALHOST,
@@ -47,7 +48,8 @@ class Test_Backend(object):
         self.instance = instance
 
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(self):
         if self.instance.exists():
             self.instance.delete()
 

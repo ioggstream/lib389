@@ -13,11 +13,10 @@ from lib389._constants import *
 from lib389.properties import *
 from lib389 import DirSrv,Entry
 
+from config import INSTANCE_PREFIX
 TEST_REPL_DN = "uid=test,%s" % DEFAULT_SUFFIX
 INSTANCE_PORT     = 54321
 INSTANCE_SERVERID = 'dirsrv'
-#INSTANCE_PREFIX   = os.environ.get('PREFIX', None)
-INSTANCE_PREFIX   = None
 INSTANCE_BACKUP   = os.environ.get('BACKUPDIR', DEFAULT_BACKUPDIR)
 
 class Test_dirsrv():
@@ -49,11 +48,13 @@ class Test_dirsrv():
             
         self.instance.log.info('%s modified' % TEST_REPL_DN)
 
-    def setUp(self):
+    @classmethod
+    def setup_class(self):
         pass
 
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(self):
         pass
 
 

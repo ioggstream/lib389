@@ -1,1 +1,15 @@
 This repository contains tools and libraries for testing 389 Directory Server.
+
+To run the tests you need:
+ - run the test-setup script (please read the source!)
+ - set some environment variables like PREFIX and PYTHONPATH
+ # export PYTHONPATH+=":$PWD"
+ # export PREFIX="$HOME/install"
+
+
+On debian system you may need to:
+ - fix this before compiling
+#find ~/rpmbuild/ -path '*scripts/*.in' | grep ^source -l | xargs sed -e 's/^source /. /'
+ - tweak CFLAGS & co to get rid of selinux and other missing libraries
+
+

@@ -1,8 +1,9 @@
-import logging
+import logging,os
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 DN_RMANAGER = 'uid=rmanager,cn=config'
+INSTANCE_PREFIX = os.path.expandvars("$HOME/install")
 
 auth = {'host': 'localhost',
         'port': 22389,
